@@ -1,7 +1,8 @@
 
+import { Link } from "react-router-dom";
 const Registro = () => {
   return(
-    <div>
+    <div className="img_bk2">
         <div className="bg-slate-800 border text-left border-slate-400 rounded-md p-8 shadow-lg backdrop-filter blackdrop-blur-sm bg-opacity-30 relative">
             <h1 className="text-x1 font-bold text-center">Registro</h1>
             <form action="">
@@ -54,7 +55,7 @@ const Registro = () => {
                 <button type="submit" className="w-full mb-4 text-[18px] rounded mt-6 bg-blue-500 py-2 hover:bg-blue-600 transition-colors duration-300">Crear usuario</button>
       
                 <div>
-                   {/* <span>¿Eres nuevo? <Link to='Registro'>Crear una cuenta</Link> </span>*/}
+                  <span>¿Ya tienes una cuenta? <Link to='/Login'>Inicia sesión</Link> </span>
                 </div>
             </form>
         </div>

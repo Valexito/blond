@@ -1,13 +1,11 @@
 import './App.css'
-import Login from './pages/Login'
-import Registro from './pages/Registro'
-
+import Navegation from './components/_partials/routes/Navegation'
 
 function App() {
   
   return (
  <div className='text-white h-[100vh] flex items-center justify-center bg-cover' >
-  <Registro/>
+  <Navegation/>
  </div>
 
   )
