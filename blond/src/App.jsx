@@ -1,11 +1,13 @@
 import './App.css'
-import Navegation from './components/_partials/routes/Navegation'
+import Navegation from './components/routes/Navegation'
 
 function App() {
   
   return (
- <div className='text-white h-[100vh] flex items-center justify-center bg-cover' >
-  <Navegation/>
+ <div className=''>
+  
+  <Navegation/> 
+ 
  </div>
 
   )

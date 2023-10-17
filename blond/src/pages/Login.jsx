@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
 const Login = () => {
   return (
-      <div>
-        <div className="bg-slate-800 border text-left border-slate-400 rounded-md p-8 shadow-lg backdrop-filter blackdrop-blur-sm bg-opacity-30 relative">
+      <body className="img2 h-[100vh] flex items-center justify-center bg-cover">
+        <div className="bg-slate-800 border text-left border-slate-400 rounded-md p-8 shadow-lg backdrop-filter blackdrop-blur-sm bg-opacity-30 relative z-40">
           <h1 className="text-x1 font-bold text-center">Iniciar Sesión</h1>
           <form action="">
             <div className="relative my-4">
@@ -52,12 +51,13 @@ const Login = () => {
 
             <div>
               <span>
-                ¿Eres nuevo? <Link to="/Registro">Crear una cuenta</Link>{" "}
+                ¿Eres nuevo? <Link to="/Registro">Crear una cuenta</Link>
               </span>
             </div>
           </form>
         </div>
-      </div>
+      </body>
   );
 };
 export default Login;
+import { Link } from "react-router-dom";
