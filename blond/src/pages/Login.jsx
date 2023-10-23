@@ -41,7 +41,7 @@ const Login = () => {
       <div className="img2 h-[100vh] flex items-center justify-center bg-cover">
         <div className="bg-slate-800 border text-left border-slate-400 rounded-md p-8 shadow-lg backdrop-filter blackdrop-blur-sm bg-opacity-30 relative z-40">
         {error && <Alert message={error} />}
-          <h1 className="text-x1 font-bold text-center">Iniciar Sesión</h1>
+          <h1 className="text-white text-x1 font-bold text-center">Iniciar Sesión</h1>
           <form onSubmit={handleSubmit}>
             <div className="relative my-4">
               <input
@@ -53,7 +53,7 @@ const Login = () => {
               />
               <label
                 htmlFor='email'
-                className="absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:scale-100 peer-placeholder:translate-y-0 peer-focus:-translate-y-6"
+                className="text-white absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:scale-100 peer-placeholder:translate-y-0 peer-focus:-translate-y-6"
               >
                 Nombre de usuario
               </label>
@@ -69,7 +69,7 @@ const Login = () => {
               />
               <label
                 htmlFor='password'
-                className="absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:scale-100 peer-placeholder:translate-y-0 peer-focus:-translate-y-6"
+                className="text-white absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:scale-100 peer-placeholder:translate-y-0 peer-focus:-translate-y-6"
               >
                 Contraseña
               </label>
@@ -78,21 +78,21 @@ const Login = () => {
             <div>
               <div className="text-x1 text-center">
                 <input type="checkbox" name="" id="" />
-                <label htmlFor="Recordarme">Recordar mi usuario</label>
+                <label htmlFor="Recordarme" className="text-white">Recordar mi usuario</label>
               </div>
             </div>
             <button
-              className="w-full mb-4 text-[18px] rounded mt-6 bg-blue-500 py-2 hover:bg-blue-600 transition-colors duration-300"
+              className="text-white w-full mb-4 text-[18px] rounded mt-6 bg-blue-500 py-2 hover:bg-blue-600 transition-colors duration-300"
             >
               Iniciar Sesión
             </button>
 
             <div className="text-x1 text-center">
-              <a href="#!" onClick={handleResetPassword}>Olvidaste tu contraseña</a>
+              <a href="#!" onClick={handleResetPassword} className="text-white">Olvidaste tu contraseña</a>
             </div>
 
             <div>
-              <span>
+              <span className="text-white">
                 ¿Eres nuevo? <Link to="/Registro">Crear una cuenta</Link>
               </span>
             </div>

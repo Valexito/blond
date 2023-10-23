@@ -1,5 +1,8 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 export default function Navbar() {
+  const { pathname } = useLocation()
+  if (pathname === '/dashboard') return null
+
   return (
     <div>
        <nav className="bg-white border-gray-200 dark:bg-gray-900">

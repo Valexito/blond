@@ -33,7 +33,6 @@ html { scroll-behavior: smooth;}
   background-image: url('./assets/img/fondo.jpg');
   background-color: #cccccc;
   background-size: cover;
-  color:white;
   background-attachment: fixed; /* Esto evita que la imagen se desplace con el contenido */
   height: 100vh; /* Ajusta la altura al 100% de la altura de la ventana (viewport) */
 }
@@ -41,8 +40,29 @@ html { scroll-behavior: smooth;}
   background-image: url('./assets/img/fondo2.jpg');
   background-color: #cccccc;
   background-size: cover;
-  color:white;
   background-attachment: fixed; /* Esto evita que la imagen se desplace con el contenido */
   height: 100vh; /* Ajusta la altura al 100% de la altura de la ventana (viewport) */
+}
 
+/*Style for Phone number alert*/
+.display{
+  display: none;
+}
+.alert {
+  padding: 15px;
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-info {
+  border-color: #bce8f1;
+  color: #31708f;
+  background-color: #d9edf7;
+}
+
+.alert-error {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
 }

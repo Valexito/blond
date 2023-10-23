@@ -5,7 +5,7 @@ import { MdWhatsapp } from 'react-icons/md'
 import { FaTiktok } from 'react-icons/fa'
 import { Helmet } from 'react-helmet'
 function Dashboard () {
-  const { user, signout, loading } = useAuth()
+  const { currentuser, signout, loading } = useAuth()
 
   const handleSignout = async () => {
     try {
@@ -53,7 +53,7 @@ function Dashboard () {
                 </svg>
               </button>
               <div className='hidden lg:flex items-center'>
-                <span className='text-base font-normal text-gray-500 mr-5'>Bienvenido {user.displayName || user.email}</span>
+                <span className='text-base font-normal text-gray-500 mr-5'>Bienvenido {currentuser.displayName || currentuser.email}</span>
               </div>
               <button onClick={handleSignout} href='#' className='hidden sm:inline-flex ml-5 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-3'>
                 <RxExit className='svg-inline--fa fa-gem -ml-1 mr-2 h-4 w-4' />

@@ -1,7 +1,7 @@
 import { useAuth } from '../../context/authContext'
 import { Navigate } from 'react-router-dom'
 export function ProtectedRoute ({ children }) {
-  const { user, loading } = useAuth()
+  const { currentuser, loading } = useAuth()
   if (loading) {
     return (
       <div className='text-center'>
@@ -15,6 +15,6 @@ export function ProtectedRoute ({ children }) {
       </div>
     )
   }
-  if (!user) return <Navigate to='/signin' />
+  if (!currentuser ) return <Navigate to='/login' />
   return <>{children}</>
 }
