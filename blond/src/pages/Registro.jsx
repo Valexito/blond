@@ -3,41 +3,81 @@ const Registro = () => {
     email: "",
     password: "",
     FullName: "",
+    Lastname: "",
+    Username: "",
+    Phone: "",
     confirmPassword: "",
   });
 
   //This error is a import of authContext equals for currentuser
-  const { error ,signup, currentuser  } = useAuth();
+  const { error, signup, currentuser } = useAuth();
   const navigate = useNavigate();
   //this error show errror locals and backError show errors in authContext = err
-  const [errror, setError] = useState()
-  const [backError, setBackError] = useState()
+  const [err, setError] = useState();
+  const [backError, setBackError] = useState();
+  //Consts for FireStore
+  const [newFullName, setFullName] = useState("");
+  const [newLastName, setLastName] = useState("");
+  const [newUsername, setUserName] = useState("");
+  const [newEmail, setEmail] = useState("");
+  const [newPhone, setPhone] = useState(0);
+  const [newPassword, setPassword] = useState("");
+
 
   const handleChange = ({ target: { name, value } }) => {
-    setUser({ ...user, [name]: value });
+    setUser({ ...user, [name]: value })
+    //Setando de manera individual
+    setFullName(user.FullName);
+    setLastName(user.Lastname);
+    setUserName(user.Username);
+    setEmail(user.email);
+    setPhone(user.Phone);
+    setPassword(user.password);
   };
-
+  //Cheack errors and later send at currentuser
   useEffect(() => {
-    console.log("i am in")
     if (error) {
-        setInterval(() => {
-            setBackError("")
-        }, 5000)
-        setBackError(error)
+      setInterval(() => {
+        setBackError("");
+      }, 5000);
+      setBackError(error);
     }
-}, [error, currentuser])
+  }, [error, currentuser]);
 
+  //Firestore
+  const userCollectionRef = collection(db, "users1");
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(userCollectionRef);
+      console.log(data);
+      setUser(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getUsers();
+  }, []);
+  //End Firestore
 
-  const handleSubmit = async e => {
-    e.preventDefault()
-    setError('')
+  //When u send data this function cheack and later send to Firebase and later send data to Firestore
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
     try {
-      const { email, password, confirmPassword, FullName } = user;
+      const {
+        email,
+        password,
+        confirmPassword,
+        FullName,
+        Lastname,
+        Username,
+        Phone,
+      } = user;
       if (
         password == "" ||
         confirmPassword == "" ||
         email == "" ||
-        FullName == ""
+        FullName == "" ||
+        Lastname == "" ||
+        Username == "" ||
+        Phone == ""
       ) {
         setInterval(() => {
           setError("");
@@ -55,12 +95,13 @@ const Registro = () => {
         return setError("La contraseña debe de ser mayor a 6 caracteres");
       } else {
         await signup(user.email, user.password);
+        await addDoc(userCollectionRef, {FullName: newFullName , LastName: newLastName, Password: newPassword, Phone: newPhone, Username: newUsername, email: newEmail});
         navigate("/dashboard");
       }
     } catch (error) {
-      setError(error.message)
+      setError(error.message);
     }
-  }
+  };
   // const phonevalidation = process();
 
   //Save data
@@ -69,7 +110,7 @@ const Registro = () => {
     <div className="img1 h-[100vh] flex items-center justify-center">
       <div>
         <div className="bg-slate-800 border text-left border-slate-400 rounded-md p-8 shadow-lg backdrop-filter blackdrop-blur-sm bg-opacity-30 relative z-40">
-          {errror && <Alert message={errror} />}
+          {err && <Alert message={err} />}
           {backError && <Alert message={backError} />}
           <h1 className="text-white text-x1 font-bold text-center">Registro</h1>
           <form onSubmit={handleSubmit}>
@@ -83,7 +124,7 @@ const Registro = () => {
                 className="block w-72 py-2.5 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600  peer"
               />
               <label
-                htmlFor="fullname"
+                htmlFor="FullName"
                 className="text-white absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:scale-100 peer-placeholder:translate-y-0 peer-focus:-translate-y-6"
               >
                 Nombres
@@ -93,12 +134,14 @@ const Registro = () => {
             <div className="relative my-4">
               <input
                 type="text"
-                name="lastname"
-                className="block w-72 py-2.5 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600  peer"
                 placeholder=""
+                value={user.Lastname}
+                name="Lastname"
+                onChange={handleChange}
+                className="block w-72 py-2.5 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600  peer"
               />
               <label
-                htmlFor="lastname"
+                htmlFor="Lastname"
                 className="text-white absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:scale-100 peer-placeholder:translate-y-0 peer-focus:-translate-y-6"
               >
                 Apellidos
@@ -108,12 +151,14 @@ const Registro = () => {
             <div className="relative my-4">
               <input
                 type="text"
-                name="username"
-                className="block w-72 py-2.5 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600  peer"
                 placeholder=""
+                value={user.Username}
+                name="Username"
+                onChange={handleChange}
+                className="block w-72 py-2.5 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600  peer"
               />
               <label
-                htmlFor="username"
+                htmlFor="Username"
                 className="text-white absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:scale-100 peer-placeholder:translate-y-0 peer-focus:-translate-y-6"
               >
                 Nombre de usuario
@@ -140,14 +185,17 @@ const Registro = () => {
             <form>
               <div className="relative my-4">
                 <input
-                  id="phone"
-                  name="phone"
-                  type="text"
+                  id="Phone"
+                  type="number"
+                  placeholder=""
+                  value={user.Phone}
+                  name="Phone"
+                  onChange={handleChange}
                   className="block w-72 py-2.5 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600  peer"
                 />
                 <br />
                 <label
-                  htmlFor="phone"
+                  htmlFor="Phone"
                   className="text-white absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:scale-100 peer-placeholder:translate-y-0 peer-focus:-translate-y-6"
                 >
                   Número de teléfono
@@ -192,7 +240,7 @@ const Registro = () => {
                 className="block w-72 py-2.5 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600  peer"
               />
               <label
-                htmlFor="password"
+                htmlFor="confirmPassword"
                 className="text-white absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:scale-100 peer-placeholder:translate-y-0 peer-focus:-translate-y-6"
               >
                 Confirmar contraseña
@@ -229,8 +277,10 @@ const Registro = () => {
 
 export default Registro;
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/authContext";
 import { Alert } from "../components/_partials/Alert";
 import { Helmet } from "react-helmet";
-//Firebase
+//FireStore
+import { db } from "../firebase";
+import { collection, getDocs, addDoc } from "firebase/firestore";
